@@ -5,7 +5,8 @@ namespace Bethanys.Hrm.Client.Components
 
     public partial class EmployeeRow
     {
-        [Parameter]
-        public EmployeeModel Employee { get; set; }
+        [Parameter] public EmployeeModel Employee { get; set; }
+
+        private bool showBenefits { get; set; }
     }
 }
