@@ -1,4 +1,5 @@
-﻿@using Microsoft.AspNetCore.Components.Web
+﻿@using System.Xml.Serialization
+@using Microsoft.AspNetCore.Components.Web
 
 
 @*@intro("Hi there!")*@
@@ -15,6 +16,7 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object> InputAttributes { get; set; }
 
+    // REMEMBER : the property Date need to have an EventCallBack with the syntax propertyName+changed :  EventCallback<DateTimeOffset?> DateChanged, to be able to use the @bing-Date
     [Parameter]
     public DateTimeOffset? Date { get; set; }
 

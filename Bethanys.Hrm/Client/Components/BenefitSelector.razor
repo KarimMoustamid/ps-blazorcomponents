@@ -35,8 +35,11 @@ else
                         {
                             <td>@benefit.StartDate?.ToString("MM/dd/yyyy")</td>
                             <td>
-                                <input type="date"
-                                       @bind="benefit.EndDate">
+                                @* <input type="date" *@
+                                @*        @bind="benefit.EndDate"> *@
+                                @* REMEMBER : in this Senario we want the DateField Component to dont have a dependency to the  BenefitEmployeeModel, so we use @bind-childPeoperty*@
+                                <DateField @bind-Date="benefit.EndDate"></DateField>
+                                @benefit.EndDate?.ToString("MM/dd/yyyy")
                             </td>
                         }
                     </tr>
