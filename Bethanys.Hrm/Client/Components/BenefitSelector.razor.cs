@@ -11,21 +11,21 @@ namespace Bethanys.Hrm.Client.Components
         private bool SaveButtonDisabled = true;
 
         private List<DateField> dateFieldRefs = new List<DateField>();
-        private DateField dateFieldRef { set { dateFieldRefs.Add(value); } }
+
+        private DateField dateFieldRef
+        {
+            set { dateFieldRefs.Add(value); }
+        }
 
         private IEnumerable<BenefitEmployeeModel> benefits = null;
 
-        [Inject]
-        public IBenefitApiService BenefitApiService { get; set; }
+        [Inject] public IBenefitApiService BenefitApiService { get; set; }
 
-        [CascadingParameter]
-        public Theme Theme { get; set; }
+        [CascadingParameter] public Theme Theme { get; set; }
 
-        [Parameter]
-        public EmployeeModel Employee { get; set; }
+        [Parameter] public EmployeeModel Employee { get; set; }
 
-        [Parameter]
-        public EventCallback<bool> OnPremiumToggle { get; set; }
+        [Parameter] public EventCallback<bool> OnPremiumToggle { get; set; }
 
         private async Task RevertClick()
         {
@@ -36,7 +36,7 @@ namespace Bethanys.Hrm.Client.Components
         public async Task CheckBoxChanged(ChangeEventArgs e,
             BenefitEmployeeModel benefit)
         {
-            var newValue = e.Value != null && (bool)e.Value;
+            var newValue = e.Value != null && (bool) e.Value;
             benefit.Selected = newValue;
             SaveButtonDisabled = false;
 
@@ -45,6 +45,8 @@ namespace Bethanys.Hrm.Client.Components
                 benefit.StartDate = DateTime.Now;
                 benefit.EndDate = DateTime.Now.AddYears(1);
             }
+
+            Employee.HasPremiumBenefits = true;
             await OnPremiumToggle.InvokeAsync(
                 benefits.Any(b => b.Premium && b.Selected));
         }
@@ -57,7 +59,7 @@ namespace Bethanys.Hrm.Client.Components
 
         protected override async Task OnInitializedAsync()
         {
-            benefits = 
+            benefits =
                 await BenefitApiService.GetForEmployee(Employee);
         }
     }

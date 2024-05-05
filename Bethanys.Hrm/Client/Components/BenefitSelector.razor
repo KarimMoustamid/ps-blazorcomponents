@@ -1,52 +1,57 @@
 ﻿@using Bethanys.Hrm.Shared;
 @if (benefits == null)
 {
-    <p><em>Loading...</em></p>
+    <p>
+        <em>Loading...</em>
+    </p>
 }
 else
 {
     <div class="row">
         <div class="col-md-8">
-            <TableTemplate Items="benefits" IsSmall="true">
-                <TableHeader>
+            <table>
+                <thead>
+                <tr>
+                    <th class="w-auto"></th>
                     <th class="w-auto">Benefit</th>
-                    <th class="w-25">Start date</th>
-                    <th class="w-25">End date</th>
-                </TableHeader>
-                <RowTemplate>
-                    <td>
+                    <th class="w-25">start date</th>
+                    <th class="w-25">End Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var benefit in benefits)
+                {
+                    <tr @key="benefit">
+                        @* <input type="checkbox" *@
+                        @*        @bind="benefit.Selected"> *@
                         <input type="checkbox"
-                               checked="@context.Selected"
-                        @onchange="e => CheckBoxChanged(e, context)" />
-                    </td>
-                    <td>@context.Description</td>
-                    @if (@context.Selected)
-                    {
-                        <td>@context.StartDate?.ToString("dd/MM/yyyy")</td>
+                               checked="@benefit.Selected"
+                               @onchange="e => CheckBoxChanged(e, benefit)"
+                               name="" id="">
                         <td>
-                            <DateField @ref="dateFieldRef"
-                            @bind-Date="context.EndDate"
-                                       placeHolder="Enter a date"
-                                       required="required"
-                                       maxLength="50" />
+                            @benefit.Description
                         </td>
-                    }
-                    else
-                    {
-                        <td></td>
-                        <td></td>
-                    }
-                </RowTemplate>
-            </TableTemplate>
+                        @if (benefit.Selected)
+                        {
+                            <td>@benefit.StartDate?.ToString("MM/dd/yyyy")</td>
+                            <td>
+                                <input type="date"
+                                       @bind="benefit.EndDate">
+                            </td>
+                        }
+                    </tr>
+                }
+                </tbody>
+            </table>
         </div>
         <div class="col-md-4 mt-1">
-            <button class="btn @Theme.ButtonClass" 
-                disabled="@SaveButtonDisabled"
-                @onclick="SaveClick">
+            <button class="btn @Theme.ButtonClass"
+                    disabled="@SaveButtonDisabled"
+                    @onclick="SaveClick">
                 Save
             </button>
             <button class="btn @Theme.ButtonClass"
-                @onclick="RevertClick">
+                    @onclick="RevertClick">
                 Revert
             </button>
         </div>

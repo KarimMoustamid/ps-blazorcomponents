@@ -8,5 +8,10 @@ namespace Bethanys.Hrm.Client.Components
         [Parameter] public EmployeeModel Employee { get; set; }
 
         private bool showBenefits { get; set; }
+
+        private void PremiumToggle(bool premiumBenefit)
+        {
+            Employee.HasPremiumBenefits = premiumBenefit;
+        }
     }
 }
