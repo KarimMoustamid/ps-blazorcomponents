@@ -1,4 +1,5 @@
-﻿@using System.Xml.Serialization
+﻿@using System.Security.Cryptography
+@using System.Xml.Serialization
 @using Microsoft.AspNetCore.Components.Web
 
 
@@ -16,7 +17,7 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object> InputAttributes { get; set; }
 
-    // REMEMBER : the property Date need to have an EventCallBack with the syntax propertyName+changed :  EventCallback<DateTimeOffset?> DateChanged, to be able to use the @bing-Date
+    // REMEMBER : the property Date need to have an EventCallBack with the syntax propertyName+changed :  EventCallback<DateTimeOffset?> DateChanged, to be able to use the @bing-Date... we are using the @bind-xxx outside of an html element !
     [Parameter]
     public DateTimeOffset? Date { get; set; }
 
@@ -42,5 +43,6 @@
     protected override void OnInitialized()
     {
         origDate = Date;
-    } 
+    }
+
  }

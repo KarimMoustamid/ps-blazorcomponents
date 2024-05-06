@@ -35,11 +35,9 @@ else
                         {
                             <td>@benefit.StartDate?.ToString("MM/dd/yyyy")</td>
                             <td>
-                                @* <input type="date" *@
-                                @*        @bind="benefit.EndDate"> *@
-                                @* REMEMBER : in this Senario we want the DateField Component to dont have a dependency to the  BenefitEmployeeModel, so we use @bind-childPeoperty*@
-                                <DateField @bind-Date="benefit.EndDate"></DateField>
-                                @benefit.EndDate?.ToString("MM/dd/yyyy")
+                                @* REMEMBER : in this Senario we want the DateField Component to dont have a dependency to the  BenefitEmployeeModel, so we use @bind-childPeoperty *@
+                                <DateField @ref="dateFieldRef" @bind-Date="benefit.EndDate"></DateField>
+                                @* NOTE : the @ref="dateFieldRef" will be overridding for eatch DateField in the loop ,we needed to introduce : dateFieldRefs to solve this issue   *@
                             </td>
                         }
                     </tr>
@@ -50,6 +48,7 @@ else
         <div class="col-md-4 mt-1">
             <button class="btn @Theme.ButtonClass"
                     disabled="@SaveButtonDisabled"
+
                     @onclick="SaveClick">
                 Save
             </button>

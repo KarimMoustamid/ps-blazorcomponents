@@ -29,8 +29,11 @@ namespace Bethanys.Hrm.Client.Components
 
         private async Task RevertClick()
         {
+            // NOTE : @Ref should not ne used to change the state of the referenced component .
             foreach (var dateRef in dateFieldRefs)
+            {
                 await dateRef.Revert();
+            }
         }
 
         public async Task CheckBoxChanged(ChangeEventArgs e,
